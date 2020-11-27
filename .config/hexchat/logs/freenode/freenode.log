@@ -1,0 +1,89 @@
+**** BEGIN LOGGING AT Wed Sep 16 11:32:02 2020
+
+Sep 16 11:32:02 *	*** Looking up your hostname...
+Sep 16 11:32:02 *	*** Checking Ident
+Sep 16 11:32:02 *	*** Couldn't look up your hostname
+Sep 16 11:32:07 Perl interface unloaded
+Sep 16 11:32:07 Python interface unloaded
+Sep 16 11:32:07 FiSHLiM plugin unloaded
+Sep 16 11:32:07 Checksum plugin unloaded
+Sep 16 11:32:07 Sysinfo plugin unloaded
+**** ENDING LOGGING AT Wed Sep 16 11:32:07 2020
+
+**** BEGIN LOGGING AT Wed Sep 23 10:22:52 2020
+
+Sep 23 10:22:52 *	Welcome to the freenode Internet Relay Chat Network bhs
+Sep 23 10:22:52 *	Your host is tolkien.freenode.net[204.225.96.251/6697], running version ircd-seven-1.1.9
+Sep 23 10:22:52 *	This server was created Thu Sep 3 2020 at 18:52:25 UTC
+Sep 23 10:22:52 *	tolkien.freenode.net ircd-seven-1.1.9 DOQRSZaghilopsuwz CFILMPQSbcefgijklmnopqrstuvz bkloveqjfI
+Sep 23 10:22:52 *	CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstuz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=freenode STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+Sep 23 10:22:52 *	CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 WHOX KNOCK SAFELIST :are supported by this server
+Sep 23 10:22:52 *	ELIST=CTU CPRIVMSG CNOTICE ETRACE MONITOR=100 :are supported by this server
+Sep 23 10:22:52 *	There are 97 users and 80495 invisible on 31 servers
+Sep 23 10:22:52 *	42 :IRC Operators online
+Sep 23 10:22:52 *	22 :unknown connection(s)
+Sep 23 10:22:52 *	46689 :channels formed
+Sep 23 10:22:52 *	I have 3260 clients and 1 servers
+Sep 23 10:22:52 *	3260 3492 :Current local users 3260, max 3492
+Sep 23 10:22:52 *	80592 86974 :Current global users 80592, max 86974
+Sep 23 10:22:52 *	Highest connection count: 3493 (3492 clients) (84478 connections received)
+Sep 23 10:22:52 *	- tolkien.freenode.net Message of the Day - 
+Sep 23 10:22:52 *	- Welcome to tolkien.freenode.net in Sanford, NC, US. Thanks to
+Sep 23 10:22:52 *	- https://travelingmailbox.com/ for sponsoring this server
+Sep 23 10:22:52 *	- Welcome to freenode - supporting the free and open source
+Sep 23 10:22:52 *	- software communities since 1998.
+Sep 23 10:22:52 *	-  
+Sep 23 10:22:52 *	- By connecting to freenode you indicate that you have read and
+Sep 23 10:22:52 *	- accept our policies and guidelines as set out on https://freenode.net
+Sep 23 10:22:52 *	-  
+Sep 23 10:22:52 *	- In the event that you observe behaviour that contravenes our policies,
+Sep 23 10:22:52 *	- please notify a volunteer staff member via private message, or send us an
+Sep 23 10:22:52 *	- e-mail to complaints@freenode.net -- we will do our best to address the
+Sep 23 10:22:52 *	- situation within a reasonable period of time, and we may request further
+Sep 23 10:22:52 *	- information or, as appropriate, involve other parties such as channel operators 
+Sep 23 10:22:52 *	- Group Contacts representing an on-topic group.
+Sep 23 10:22:52 *	-  
+Sep 23 10:22:52 *	- freenode runs an open proxy scanner.
+Sep 23 10:22:52 *	-  
+Sep 23 10:22:52 *	- If you are looking for assistance, you may be able to find a list of 
+Sep 23 10:22:52 *	- volunteer staff on '/stats p' (shows only on-call staff) or by joining 
+Sep 23 10:22:52 *	- #freenode and using the '/who freenode/staff/*' command. You may message
+Sep 23 10:22:52 *	- any of us at any time. Please note that freenode predominantly provides 
+Sep 23 10:22:52 *	- assistance via private message, and while we have a network channel the 
+Sep 23 10:22:52 *	- primary venue for support requests is via private message to a member 
+Sep 23 10:22:52 *	- of the volunteer staff team.
+Sep 23 10:22:52 *	-  
+Sep 23 10:22:52 *	- From time to time, volunteer staff may send server-wide notices relating to
+Sep 23 10:22:52 *	- the project, or the communities that we host. The majority of such notices
+Sep 23 10:22:52 *	- will be sent as wallops, and you can '/mode <yournick> +w' to ensure that you
+Sep 23 10:22:52 *	- do not miss them. Important messages relating to the freenode project, including
+Sep 23 10:22:52 *	- notices of upcoming maintenance and other scheduled downtime will be issued as
+Sep 23 10:22:52 *	- global notices.
+Sep 23 10:22:52 *	-  
+Sep 23 10:22:52 *	- Representing an on-topic project? Don't forget to register, more information
+Sep 23 10:22:52 *	- can be found on the https://freenode.net website under "Group Registration".
+Sep 23 10:22:52 *	-  
+Sep 23 10:22:52 *	- Thank you also to our server sponsors for the sustained support in keeping the
+Sep 23 10:22:52 *	- network going for close to two decades.
+Sep 23 10:22:52 *	-  
+Sep 23 10:22:52 *	- Thank you for using freenode!
+Sep 23 10:22:52 *	End of /MOTD command.
+Sep 23 10:22:52 *	bhs sets mode +Z on bhs
+Sep 23 10:22:52 *	bhs sets mode +i on bhs
+Sep 23 10:22:53 -freenode-connect-	Welcome to freenode. To protect the network all new connections will be scanned for vulnerabilities. This will not harm your computer, and vulnerable hosts will be notified.
+Sep 23 10:22:53 *	Received a CTCP VERSION from freenode-connect
+**** ENDING LOGGING AT Wed Sep 23 10:23:50 2020
+
+**** BEGIN LOGGING AT Wed Sep 23 10:23:50 2020
+
+**** ENDING LOGGING AT Wed Sep 23 10:24:25 2020
+
+**** BEGIN LOGGING AT Wed Sep 23 10:24:25 2020
+
+Sep 23 10:24:29 Perl interface unloaded
+Sep 23 10:24:29 Python interface unloaded
+Sep 23 10:24:29 FiSHLiM plugin unloaded
+Sep 23 10:24:29 Checksum plugin unloaded
+Sep 23 10:24:29 Sysinfo plugin unloaded
+**** ENDING LOGGING AT Wed Sep 23 10:24:29 2020
+

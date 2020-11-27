@@ -1,0 +1,209 @@
+#!/usr/bin/env bash
+# Author: Nidia Achrys
+# Project: scriptctl
+# Version: 2.0
+# Description:
+#	This utility provides tools to create, edit, list,
+#	and print shell scripts.
+#
+# Usage: scriptctl [OPTION] [FLAGS]
+
+# Variables
+CMDNAME=`basename $0`
+VERSION="2.0"
+scriptshell="bash"
+
+[[ -z "${SCRIPTS}" ]] && SCRIPTS="$HOME/.local/bin"
+[[ -z "${EDITOR}" ]] && EDITOR=nano
+
+# Functions
+
+function SCRIPTNAME()
+{
+	echo "$(basename ${0})"
+}
+
+function PRINT()
+{
+	if [ -z "${1}" ]; then
+		printf "\n"
+	else
+		printf "%b\n" "${1}"
+	fi
+}
+
+function pause()
+{
+	read -p "Press ENTER to continue..." cmd
+}
+
+function lowercase()
+{
+	printf "$1" | tr '[:upper:]' '[:lower:]'
+}
+
+function invalid()
+{
+	PRINT 
+	PRINT "Invalid command '${1}'. See '`SCRIPTNAME` help'."
+	PRINT 
+}
+
+function emptycmd()
+{
+	PRINT 
+	PRINT "You must specify a subcommand. See '`SCRIPTNAME` help'."
+	PRINT 
+}
+
+getName()
+{
+    if [[ -z "${1}" ]]
+    then
+        read -p "Enter the name of the script: " scriptname
+	else
+		scriptname="${1}"
+    fi
+    script="${SCRIPTS}/${scriptname}"
+}
+
+createScript()
+{
+	getName "${1}"
+
+	scriptshell="${2}"
+
+    if [[ ! -e "${script}" ]]
+    then
+    	touch ${script}
+    	echo "#!/usr/bin/env ${scriptshell}" >> ${script}
+    	${EDITOR} ${script}
+    	chmod +x ${script}
+    	echo "$CMDNAME: ${scriptname} created!"
+    	exit 0
+    else
+    	echo "$CMDNAME: ${scriptname} already exists!"
+    	exit 1
+    fi
+}
+
+editScript()
+{
+	getName "${1}"
+
+	if [[ -e "${script}" ]]
+	then
+		${EDITOR} ${script}
+		echo "$CMDNAME: ${scriptname} edited!"
+		exit 0
+	else
+		echo "$CMDNAME: ${scriptname} does not exist!"
+		read -p "Create script? Y\n: " answer
+
+		[ "${answer}" = "Y" ] || [ "${answer}" = "y" ] && createScript || exit 1
+	fi
+}
+
+removeScript()
+{
+	getName "${1}"
+
+	if [[ -e "${script}" ]]
+	then
+		rm -f ${script}
+		echo "$CMDNAME: ${scriptname} removed!"
+		exit 0
+	else
+		echo "$CMDNAME: ${scriptname} does not exist!"
+		exit 1
+	fi
+}
+
+printScript()
+{
+	getName "${1}"
+
+	if [[ -e "${script}" ]]
+	then
+		cat ${script}
+		exit 0
+	else
+		echo "$CMDNAME: ${scriptname} does not exist!"
+		exit 1
+	fi
+}
+
+listScripts()
+{
+	ls -1 --color=auto $SCRIPTS
+	exit 0
+}
+
+version()
+{
+  PRINT "`SCRIPTNAME` v$VERSION"
+  PRINT "Copyright (C) `date +"%Y"` Nidia Achrys"
+  PRINT "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>."
+  PRINT "This is free software: you are free to change and redistribute it."
+  PRINT "There is NO WARRANTY, to the extent permitted by law."
+  PRINT
+  PRINT "Written by Nidia Achrys."
+  exit 0
+}
+
+helpPrompt()
+{
+	PRINT "Create, edit, remove, or print scripts."
+	PRINT 
+	PRINT "Usage: `SCRIPTNAME` [command] [args]"
+	PRINT "Example: `SCRIPTNAME` create torrentctl '/usr/bin/env zsh'"
+	PRINT 
+	PRINT "Commands:"
+	PRINT "(c) create\t\tCreate a new script"
+	PRINT "(e) edit\t\tEdit an existing script"
+	PRINT "(r) remove\t\tDelete an existing script"
+	PRINT "(p) print\t\tPrint a script to STDOUT"
+	PRINT "(l) list\t\tList all scripts"
+	PRINT 
+	PRINT "Miscellaneous:"
+	PRINT "(v) version\t\toutput version information and exit"
+	PRINT "(h) help\t\tdisplay this help and exit"
+	exit 0
+}
+
+# Create the scripts directory if it does not already exist.
+[[ ! -d "${SCRIPTS}" ]] && mkdir ${SCRIPTS}
+
+cmd=`lowercase ${1}`
+
+case "${cmd}" in
+	c | create )
+		createScript "${2}" "${3}"
+		;;
+	e | edit )
+		editScript "${2}"
+		;;
+	r | remove )
+		removeScript "${2}"
+		;;
+	p | print )
+		printScript "${2}"
+		;;
+	l | list )
+		listScripts
+		;;
+	v | version )
+		version
+		;;
+	\? | h | help )
+		helpPrompt
+		;;
+	* )
+		if [ -z "${cmd}" ];
+		then
+			emptycmd
+		else
+			invalid "${1}"
+		fi
+		;;
+esac

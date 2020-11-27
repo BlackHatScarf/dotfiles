@@ -1,0 +1,245 @@
+#!/usr/bin/env bash
+# Author: Nidia Achrys
+# Project: tardis
+# Version: 2.0
+# Description:
+#	This utility manages backups
+#
+# Usage: tardis [OPTION] [FLAGS]
+
+version="1.0"
+
+# Config
+CONFDIR="${HOME}/.config/tardisrsync"
+EXCLUSION_FILE="${CONFDIR}/exclusions.conf"
+CONFIG="${CONFDIR}/default-disk.conf"
+
+function SCRIPTNAME()
+{
+	PRINT "$(basename ${0})"
+}
+
+function PRINT()
+{
+	if [ -z "${1}" ]; then
+		printf "\n"
+	else
+		printf "%b\n" "${1}"
+	fi
+}
+
+function pause()
+{
+	read -p "Press ENTER to continue..." cmd
+}
+
+function lowercase()
+{
+	printf "$1" | tr '[:upper:]' '[:lower:]'
+}
+
+function invalid()
+{
+	PRINT 
+	PRINT "Invalid command '${1}'. See '`SCRIPTNAME` help'."
+	PRINT 
+}
+
+function emptycmd()
+{
+	PRINT 
+	PRINT "You must specify a subcommand. See '`SCRIPTNAME` help'."
+	PRINT 
+}
+
+# Get the target directory and manifest file
+GETDIR()
+{
+  [ -f "${CONFIG}" ] && BACKUPDISK=$(cat "${CONFIG}" | grep "DEFAULT_DISK=" | sed -e 's|DEFAULT_DISK=||')
+
+  if [ -n "${1}" ];
+  then
+    TARGET="${1}"
+  else
+    [ -z "${BACKUPDISK}" ] && PRINT "You must specify a directory to back up or set a default!" && exit 1
+    TARGET="${BACKUPDISK}"
+  fi
+
+	[ ! -d "${TARGET}" ] && PRINT "That directory does not exist!" && exit 1
+
+	MANIFEST=${TARGET}/tardis-manifest.conf
+}
+
+# Create a backup in the target
+BACKUP()
+{
+	GETDIR $1
+  BACKUPNAME=$(date +"%Y-%m-%d_%H-%M-%S")
+
+  touch "${MANIFEST}"
+
+	# HOME
+	[ -e "${EXCLUSION_FILE}" ] && rsync -avhpru --exclude-from="${EXCLUSION_FILE}" --delete ${HOME} ${TARGET}
+  [ ! -e "${EXCLUSION_FILE}" ] && rsync -avhpru --delete ${HOME} ${TARGET}
+
+  mv ${TARGET}/${USER} ${TARGET}/${BACKUPNAME}
+
+  PRINT "Finished backup!"
+  PRINT "[SUCCESSFUL] ${BACKUPNAME}" | tee -a ${MANIFEST}
+  exit 0
+}
+
+# Restore a backup from the target
+RESTORE()
+{
+	GETDIR $1
+  BACKUPDIR="${TARGET}/${2}"
+
+  [ ! -d "${BACKUPDIR}" ] && PRINT "That backup does not exist!" && exit 1
+
+  for F in "${BACKUPDIR}/*"
+  do
+    file="${BACKUPDIR}/${F}"
+
+    [ -d "${file}" ] && rsync -avhpru --delete "${file}" "${HOME}"
+    [ ! -d "${file}" ] && rsync -avhpu --delete "${file}" "${HOME}"
+  done
+
+  for F in "${BACKUPDIR}/{.,}*"
+  do
+    file="${BACKUPDIR}/${F}"
+
+    [ -d "${file}" ] && rsync -avhpru --delete "${file}" "${HOME}"
+    [ ! -d "${file}" ] && rsync -avhpu --delete "${file}" "${HOME}"
+  done
+
+  PRINT "Finished restore!"
+  exit 0
+}
+
+# List all the previous backups in the target
+LIST()
+{
+	GETDIR $1
+	FILES=${TARGET}/*/
+
+	[ ! ${#FILES[@]} -gt 0 ] && PRINT "There are no backups!" && exit 1
+	[ ! -e ${MANIFEST} ] && PRINT "There are no backups!" && exit 1
+
+	ls -F ${TARGET} | grep /\$
+}
+
+# Set the default disk to look for when not specified on the command line
+DEFAULT_TARGET()
+{
+  [ ! -d ${CONFDIR} ] && mkdir -p ${CONFDIR} && PRINT "Created config file!"
+  [ -z "${1}" ] && PRINT "You must specify a directory to set as the default!" && exit 1
+  [ ! -d "${1}" ] && PRINT "That is not a valid directory!" && exit 1
+
+  cat ${CONFIG} | grep -iv "DEFAULT_DISK=" > ${CONFIG}
+  PRINT "DEFAULT_DISK=${1}" >> ${CONFIG}
+  PRINT "Set a default target!"
+  exit 0
+}
+
+# Edit the list of exclusions in $HOME/.config/tardisrsync/exclusions.conf
+EXCLUSIONS()
+{
+  [ ! -d ${CONFDIR} ] && mkdir -p ${CONFDIR} && PRINT "Created exclusions file!"
+  [ -z "${EDITOR}" ] && nano ${EXCLUSION_FILE} && PRINT "Exclusions edited!" && exit 0
+  [ -n "${EDITOR}" ] && ${EDITOR} ${EXCLUSION_FILE} && PRINT "Exclusions edited!" && exit 0
+}
+
+# Print the list of exclusions listed in $HOME/.config/tardisrsync/exclusions.conf
+PRINT_EXCLUSIONS()
+{
+  [ ! -e "${EXCLUSION_FILE}" ] && PRINT "Exclusions have not been specified." && exit 0
+  cat ${EXCLUSION_FILE}
+}
+
+# Version Prompt
+version()
+{
+  PRINT "`SCRIPTNAME` v${version}"
+  PRINT
+  PRINT "Copyright (C) `date +"%Y"` Nidia Achrys"
+  PRINT "License GPLv3+: GNU GPL version 3 or later https://gnu.org/licenses/gpl.html."
+  PRINT "This is free software: you are free to change and redistribute it."
+  PRINT "There is NO WARRANTY, to the extent permitted by law."
+  PRINT
+  PRINT "Written by Nidia Achrys."
+}
+
+# Help Prompt
+help_prompt()
+{
+ PRINT
+ PRINT "Create, restore, and list backups."
+ PRINT 
+ PRINT "Usage: `SCRIPTNAME` [command] [args]"
+ PRINT "Example: `SCRIPTNAME` backup <disk path>"
+ PRINT 
+ PRINT "Commands"
+ PRINT "(b) backup\t\tCreate a backup"
+ PRINT "(r) restore\t\tRestore a backup"
+ PRINT "(l) list\t\tList all backups"
+ PRINT
+ PRINT "Settings"
+ PRINT "(d) default-target\tSet a default target for future backups"
+ PRINT "(e) exclusions\t\tCreate or edit the exclusions file"
+ PRINT "(p) print-exclusions\tPrint out every excluded file/directory name"
+ PRINT 
+ PRINT "Miscellaneous"
+ PRINT "(h) help\t\tShow this prompt"
+ PRINT "(v) version\t\tPrint the version of this script"
+}
+
+# Exit if rsync is not installed
+[[ ! `command -v rsync` ]] && PRINT "rsync must be installed to use tardis." && exit 1
+
+cmd=`lowercase ${1}`
+
+# Command line options
+case "${cmd}" in
+  b | backup )
+    BACKUP $2
+    exit 0
+    ;;
+  r | restore)
+    RESTORE $2 $3
+    exit 0
+    ;;
+  l | list )
+    LIST $2
+    exit 0
+    ;;
+  d | default-target )
+    DEFAULT_TARGET $2
+    exit 0
+    ;;
+  e | exclusions )
+    EXCLUSIONS
+    exit 0
+    ;;
+  p | print-exclusions)
+    PRINT_EXCLUSIONS
+    exit 0
+    ;;
+  v | version )
+    version
+    exit 0
+    ;;
+  \? | h | help )
+    help_prompt
+    exit 0
+    ;;
+  * )
+		if [ -z "${cmd}" ];
+		then
+			emptycmd
+		else
+			invalid "${1}"
+		fi
+		exit 0
+		;;
+esac

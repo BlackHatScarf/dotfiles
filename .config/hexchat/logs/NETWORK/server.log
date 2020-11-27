@@ -1,0 +1,111 @@
+**** BEGIN LOGGING AT Wed Sep 16 11:09:08 2020
+
+Sep 16 11:09:08 Sysinfo plugin loaded
+Sep 16 11:09:08 Checksum plugin loaded
+Sep 16 11:09:08 FiSHLiM plugin loaded
+Sep 16 11:09:08 Lua version 1.3/5.4 loaded.
+Sep 16 11:09:08 Python interface loaded
+Sep 16 11:09:08 Perl interface loaded
+**** BEGIN LOGGING AT Wed Sep 16 11:32:01 2020
+
+Sep 16 11:32:01 Sysinfo plugin loaded
+Sep 16 11:32:01 Checksum plugin loaded
+Sep 16 11:32:01 FiSHLiM plugin loaded
+Sep 16 11:32:01 Lua version 1.3/5.4 loaded.
+Sep 16 11:32:01 Python interface loaded
+Sep 16 11:32:01 Perl interface loaded
+Sep 16 11:32:01 *	Looking up chat.freenode.net
+Sep 16 11:32:01 *	Connecting to chat.freenode.net (94.125.182.252:6697)
+Sep 16 11:32:02 *	* Subject: /O=Digital Signature Trust Co./CN=DST Root CA X3
+Sep 16 11:32:02 *	* Issuer: /O=Digital Signature Trust Co./CN=DST Root CA X3
+Sep 16 11:32:02 *	* Subject: /C=US/O=Let's Encrypt/CN=Let's Encrypt Authority X3
+Sep 16 11:32:02 *	* Issuer: /O=Digital Signature Trust Co./CN=DST Root CA X3
+Sep 16 11:32:02 *	* Subject: /CN=adams.freenode.net
+Sep 16 11:32:02 *	* Issuer: /C=US/O=Let's Encrypt/CN=Let's Encrypt Authority X3
+Sep 16 11:32:02 *	* Certification info:
+Sep 16 11:32:02 *	  Subject:
+Sep 16 11:32:02 *	    CN=adams.freenode.net
+Sep 16 11:32:02 *	  Issuer:
+Sep 16 11:32:02 *	    C=US
+Sep 16 11:32:02 *	    O=Let's Encrypt
+Sep 16 11:32:02 *	    CN=Let's Encrypt Authority X3
+Sep 16 11:32:02 *	  Public key algorithm: rsaEncryption (4096 bits)
+Sep 16 11:32:02 *	  Sign algorithm sha256WithRSAEncryption
+Sep 16 11:32:02 *	  Valid since Jul 27 05:04:46 2020 GM to Oct 25 05:04:46 2020 GM
+Sep 16 11:32:02 *	* Cipher info:
+Sep 16 11:32:02 *	  Version: TLSv1.3, cipher TLS_AES_256_GCM_SHA384 (256 bits)
+Sep 16 11:32:02 *	Connected. Now logging in.
+**** BEGIN LOGGING AT Wed Sep 23 10:22:33 2020
+
+Sep 23 10:22:33 Sysinfo plugin loaded
+Sep 23 10:22:33 Checksum plugin loaded
+Sep 23 10:22:33 FiSHLiM plugin loaded
+Sep 23 10:22:33 Lua version 1.3/5.4 loaded.
+Sep 23 10:22:33 Python interface loaded
+Sep 23 10:22:33 Perl interface loaded
+Sep 23 10:22:33 *	Looking up chat.freenode.net
+Sep 23 10:22:34 *	Connecting to chat.freenode.net (204.225.96.251:6697)
+Sep 23 10:22:34 *	* Subject: /O=Digital Signature Trust Co./CN=DST Root CA X3
+Sep 23 10:22:34 *	* Issuer: /O=Digital Signature Trust Co./CN=DST Root CA X3
+Sep 23 10:22:34 *	* Subject: /C=US/O=Let's Encrypt/CN=Let's Encrypt Authority X3
+Sep 23 10:22:34 *	* Issuer: /O=Digital Signature Trust Co./CN=DST Root CA X3
+Sep 23 10:22:34 *	* Subject: /CN=tolkien.freenode.net
+Sep 23 10:22:34 *	* Issuer: /C=US/O=Let's Encrypt/CN=Let's Encrypt Authority X3
+Sep 23 10:22:35 *	* Certification info:
+Sep 23 10:22:35 *	  Subject:
+Sep 23 10:22:35 *	    CN=tolkien.freenode.net
+Sep 23 10:22:35 *	  Issuer:
+Sep 23 10:22:35 *	    C=US
+Sep 23 10:22:35 *	    O=Let's Encrypt
+Sep 23 10:22:35 *	    CN=Let's Encrypt Authority X3
+Sep 23 10:22:35 *	  Public key algorithm: rsaEncryption (4096 bits)
+Sep 23 10:22:35 *	  Sign algorithm sha256WithRSAEncryption
+Sep 23 10:22:35 *	  Valid since Sep 14 05:05:46 2020 GM to Dec 13 05:05:46 2020 GM
+Sep 23 10:22:35 *	* Cipher info:
+Sep 23 10:22:35 *	  Version: TLSv1.3, cipher TLS_AES_256_GCM_SHA384 (256 bits)
+Sep 23 10:22:35 *	Connected. Now logging in.
+Sep 23 10:22:35 Perl interface unloaded
+Sep 23 10:22:35 Python interface unloaded
+Sep 23 10:22:35 FiSHLiM plugin unloaded
+Sep 23 10:22:35 Checksum plugin unloaded
+Sep 23 10:22:35 Sysinfo plugin unloaded
+**** ENDING LOGGING AT Wed Sep 23 10:22:35 2020
+
+**** BEGIN LOGGING AT Wed Sep 23 10:22:45 2020
+
+Sep 23 10:22:45 Sysinfo plugin loaded
+Sep 23 10:22:45 Checksum plugin loaded
+Sep 23 10:22:45 FiSHLiM plugin loaded
+Sep 23 10:22:45 Lua version 1.3/5.4 loaded.
+Sep 23 10:22:45 Python interface loaded
+Sep 23 10:22:45 Perl interface loaded
+Sep 23 10:22:45 *	Looking up chat.freenode.net
+Sep 23 10:22:45 *	Connecting to chat.freenode.net (204.225.96.251:6697)
+Sep 23 10:22:46 *	* Subject: /O=Digital Signature Trust Co./CN=DST Root CA X3
+Sep 23 10:22:46 *	* Issuer: /O=Digital Signature Trust Co./CN=DST Root CA X3
+Sep 23 10:22:46 *	* Subject: /C=US/O=Let's Encrypt/CN=Let's Encrypt Authority X3
+Sep 23 10:22:46 *	* Issuer: /O=Digital Signature Trust Co./CN=DST Root CA X3
+Sep 23 10:22:46 *	* Subject: /CN=tolkien.freenode.net
+Sep 23 10:22:46 *	* Issuer: /C=US/O=Let's Encrypt/CN=Let's Encrypt Authority X3
+Sep 23 10:22:46 *	* Certification info:
+Sep 23 10:22:46 *	  Subject:
+Sep 23 10:22:46 *	    CN=tolkien.freenode.net
+Sep 23 10:22:46 *	  Issuer:
+Sep 23 10:22:46 *	    C=US
+Sep 23 10:22:46 *	    O=Let's Encrypt
+Sep 23 10:22:46 *	    CN=Let's Encrypt Authority X3
+Sep 23 10:22:46 *	  Public key algorithm: rsaEncryption (4096 bits)
+Sep 23 10:22:46 *	  Sign algorithm sha256WithRSAEncryption
+Sep 23 10:22:46 *	  Valid since Sep 14 05:05:46 2020 GM to Dec 13 05:05:46 2020 GM
+Sep 23 10:22:46 *	* Cipher info:
+Sep 23 10:22:46 *	  Version: TLSv1.3, cipher TLS_AES_256_GCM_SHA384 (256 bits)
+Sep 23 10:22:46 *	Connected. Now logging in.
+Sep 23 10:22:47 *	*** Looking up your hostname...
+Sep 23 10:22:47 *	*** Checking Ident
+Sep 23 10:22:47 *	*** Couldn't look up your hostname
+Sep 23 10:22:52 *	*** No Ident response
+Sep 23 10:22:52 *	Capabilities supported: account-notify away-notify cap-notify chghost extended-join identify-msg multi-prefix sasl tls
+Sep 23 10:22:52 *	Capabilities requested: account-notify away-notify cap-notify chghost extended-join identify-msg multi-prefix 
+Sep 23 10:22:52 *	Capabilities acknowledged: account-notify away-notify cap-notify chghost extended-join identify-msg multi-prefix 
+**** ENDING LOGGING AT Wed Sep 23 10:22:52 2020
+

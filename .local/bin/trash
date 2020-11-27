@@ -1,0 +1,233 @@
+#!/usr/bin/env bash
+# Author: Nidia Achrys
+# Project: trash
+# Version: 2.0
+# Description:
+#	This utility manages your trash bin.
+#
+# Usage: trash [OPTION] [FLAGS]
+
+declare -- version
+declare -- TRASHINFO
+declare -- FILENAME
+declare -- FILEINFO
+declare -- DELPATH
+declare -- DELDATE
+declare -- FILEPATH
+declare -- FILEINFO
+declare -- RESTOREPATH
+
+version="1.0"
+TRASHDIRS=$HOME/.local/share/Trash
+[ -z "$TRASH" ] && TRASH=$TRASHDIRS/files
+TRASHINFO=$TRASHDIRS/info
+
+function SCRIPTNAME()
+{
+	PRINT "$(basename ${0})"
+}
+
+function PRINT()
+{
+	if [ -z "${1}" ]; then
+		printf "\n"
+	else
+		printf "%b\n" "${1}"
+	fi
+}
+
+function pause()
+{
+	read -p "Press ENTER to continue..." cmd
+}
+
+function lowercase()
+{
+	printf "$1" | tr '[:upper:]' '[:lower:]'
+}
+
+function invalid()
+{
+	PRINT 
+	PRINT "Invalid command '${1}'. See '`SCRIPTNAME` help'."
+	PRINT 
+}
+
+function emptycmd()
+{
+	PRINT 
+	PRINT "You must specify a subcommand. See '`SCRIPTNAME` help'."
+	PRINT 
+}
+
+checkFile()
+{
+  if [ -n "$1" ];
+  then
+    FILE="$1"
+  else
+    PRINT "You must specify a FILE."
+    exit 1
+  fi
+}
+
+getPath()
+{
+  confFile="${1}"
+  PRINT "$(grep -m 1 Path= ${confFile} | sed 's|Path=||')"
+}
+
+getDate()
+{
+  confFile="${1}"
+  PRINT "$(grep -m 1 DeletionDate= ${confFile} | sed 's|DeletionDate=||')"
+}
+
+add()
+{
+  checkFile "$1"
+  if [ -e "${FILE}" ];
+  then
+    FILENAME="$(basename ${FILE})"
+    DELFILE="${TRASHINFO}/${FILE}.trashinfo"
+    DELPATH=$(readlink -f ${FILE})
+    DELDATE=$(date +"%Y-%m-%dT%H:%M:%S")
+
+    PRINT "[Trash Info]" > "${TRASHINFO}/${FILENAME}.trashinfo"
+    PRINT "Path=${DELPATH}" >> "${TRASHINFO}/${FILENAME}.trashinfo"
+    PRINT "DeletionDate=${DELDATE}" >> "${TRASHINFO}/${FILENAME}.trashinfo"
+    mv ${FILE} ${TRASH}
+    PRINT "`SCRIPTNAME`: Moved ${FILE} to the trash!"
+    exit 0
+  else
+    PRINT "File '${FILE}' doesn't exist!"
+    exit 1
+  fi
+}
+
+restore()
+{
+  checkFile "$1"
+
+  FILEPATH="${TRASH}/${FILE}"
+  FILEINFO="${TRASHINFO}/${FILE}.trashinfo"
+
+  if [ -f "${FILEINFO}" ] && [ -e "${FILEPATH}" ];
+  then
+    RESTOREPATH="$(getPath ${FILEINFO})"
+    
+    mv "${FILEPATH}" "${RESTOREPATH}"
+    rm -f "${FILEINFO}"
+
+    PRINT "`SCRIPTNAME`: Restored ${FILE} to ${RESTOREPATH}!"
+    exit 0
+  else
+    PRINT "File ${FILE} is not in the trash!"
+    exit 1
+  fi
+}
+
+empty()
+{
+  rm -rf $TRASH/*
+  rm -rf $TRASHINFO/*
+  find $TRASH -type f -name ".*" -delete
+  find $TRASHINFO -type f -name ".*" -delete
+  PRINT "Emptied the trash!"
+  exit 0
+}
+
+info()
+{
+  checkFile "$1"
+
+  FILEINFO=$TRASHINFO/"${FILE}.trashinfo"
+  
+  if [ -e "${FILEINFO}" ];
+  then
+    cat "${FILEINFO}"
+    exit 0
+  else
+    PRINT "`SCRIPTNAME`: File does not have metadata / doesn't exist!"
+    exit 1
+  fi
+}
+
+version()
+{
+  PRINT "`SCRIPTNAME` v${version}"
+  PRINT
+  PRINT "Copyright (C) `date +"%Y"` Nidia Achrys"
+  PRINT "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>."
+  PRINT "This is free software: you are free to change and redistribute it."
+  PRINT "There is NO WARRANTY, to the extent permitted by law."
+  PRINT
+  PRINT "Written by Nidia Achrys."
+}
+
+helpPrompt()
+{
+  PRINT 
+  PRINT "Manage your trash bin"
+  PRINT
+  PRINT "Usage: `SCRIPTNAME` [command] <file>"
+  PRINT "Example: `SCRIPTNAME` add <file>"
+  PRINT
+  PRINT "Commands:"
+  PRINT "(a) add\t\t\tAdd a FILE to the trash"
+  PRINT "(r) restore\t\tRestore a FILE from the trash"
+  PRINT "(e) empty\t\tEmpty the trash bin"
+  PRINT "(l) list\t\tList the contents of the trash bin"
+  PRINT "(i) info\t\tGet a FILE's trash metadata"
+  PRINT
+  PRINT "Miscellaneous"
+  PRINT "(h) help\t\tShow this prompt"
+  PRINT "(v) version\t\tPrint the version of this script"
+}
+
+cmd=`lowercase "${1}"`
+
+case "${cmd}" in
+  a | add )
+    add "${2}"
+    ;;
+  r | restore)
+    restore "${2}"
+    ;;
+  e | empty )
+    empty
+    ;;
+  l | list )
+    ls --color=auto -alvhF --group-directories-first $TRASH 
+    exit 0
+    ;;
+  i | info )
+    info "${2}"
+    ;;
+  v | version )
+    version
+    ;;
+  \? | h | help )
+    helpPrompt
+    ;;
+  * )
+		if [ -z "${cmd}" ];
+		then
+			emptycmd
+      exit 1
+		else
+			invalid "${1}"
+      exit 1
+		fi
+    ;;
+esac
+
+unset version
+unset TRASHINFO
+unset FILENAME
+unset FILEINFO
+unset DELPATH
+unset DELDATE
+unset FILEPATH
+unset FILEINFO
+unset RESTOREPATH
